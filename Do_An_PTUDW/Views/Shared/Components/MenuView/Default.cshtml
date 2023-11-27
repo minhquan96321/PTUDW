@@ -1,4 +1,6 @@
-﻿@model IList<Menu>
+﻿@using Do_An_PTUDW.Models;
+@using Do_An_PTUDW.Utilities
+@model IList<Menu>
 
 <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
@@ -16,15 +18,16 @@
                 var Smenu = Model.Where(p => p.ParentID == Pid).OrderBy(p => p.MenuOrder);
                 if(Smenu.Count() == 0)
                 {
-                    <li><a href="index.html">@menu.MenuName</a></li>
+                    <li><a href="@menu.Link">@menu.MenuName</a></li>
                 }else
                 {
                     <li class="dropdown">
-                        <a href="category.html"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <a href="Categories"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             @foreach(var smn in Smenu)
                             {
-                                <li><a href="search-result.html">@smn.MenuName</a></li>
+                                string url = Functions.TitleSlugGeneration("categori", smn.MenuName, smn.MenuID);
+                                <li><a href="/@url">@smn.MenuName</a></li>
                             }
                         </ul>
                     </li>

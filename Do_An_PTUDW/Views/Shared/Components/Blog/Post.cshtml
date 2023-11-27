@@ -1,0 +1,390 @@
+﻿@using Do_An_PTUDW.Models;
+@using Do_An_PTUDW.Utilities
+@model IList<Blog>
+@{
+    List<Tag> tags = ViewBag.Tag;
+}
+<style>
+    .img-fluid {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .title {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 20px;
+    }
+
+    .Content p {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 18px;
+    }
+   
+</style>
+
+<section id="posts" class="posts">
+    <div class="container" data-aos="fade-up">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="post-entry-1 lg">
+                    @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 1).Take(1).ToList())
+                    {
+                        string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                        <a href="/@url"><img src="~/assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                        <h2><a href="/@url">@item.Title</a></h2>
+                        <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+
+                        <div class="d-flex align-items-center author">
+                            <div class="photo"><img src="~/assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                            <div class="name">
+                                <h3 class="m-0 p-0">Cameron Williamson</h3>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row g-5">
+
+                    <div class="col-lg-4 border-start custom-border">
+
+                        @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 2).Take(3).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1">
+                                <a href="/@url"><img src="@item.ImageCategory" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2><a href="/@url" class="title">@item.Title</a></h2>
+                            </div>
+
+                        }
+                    </div>
+
+                    <div class="col-lg-4 border-start custom-border">
+
+                        @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 3).Take(3).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1">
+                                <a href="/@url"><img src="@item.ImageCategory" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2><a href="/@url" class="title">@item.Title</a></h2>
+                            </div>
+
+                        }
+                    </div>
+
+                    <!-- Trending Section -->
+                    <div class="col-lg-4">
+
+                        <div class="trending">
+                            <h3>Trending</h3>
+                            <ul class="trending-post">
+
+                                @foreach (var item in tags.Where(m => m.CategoryID == 1))
+                                {
+
+                                    int i = 1;
+                                    <li>
+                                    <a href="single-post.html">
+                                        
+                                        <h3>@item.Titile</h3>
+                                        <span class="author">@item.Author</span>
+                                    </a>
+                                </li>
+                                    
+                                }
+                               
+                            </ul>
+                        </div>
+
+                    </div> <!-- End Trending Section -->
+                </div>
+            </div>
+
+        </div> <!-- End .row -->
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>Culture</h2>
+            <div><a href="category.html" class="more">See All Culture</a></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="d-lg-flex post-entry-2">
+                    @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 1).Take(1).ToList())
+                    {
+                        string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                        <a href="@url" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                            <img src="assets/img/post-landscape-6.jpg" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                            <h3><a href="@url">@item.Title</a></h3>
+                            <p class="title">@item.Content1</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img src="~/assets/img/person-2.jpg" alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">@item.Author</h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 2).Take(1).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1 border-bottom Content">
+                                <a href="@url"><img src="~/assets/img/post-landscape-1.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2 class="mb-2"><a href="@url">@item.Title</a></h2>
+                                <span class="author mb-3 d-block">@item.Author</span>
+                                <p class="mb-4  ">@item.Content1</p>
+                            </div>
+
+                        }
+                        @foreach (var item in tags.Where(m => m.CategoryID == 2).Take(1).ToList())
+                        {
+
+                            <div class="post-entry-1">
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                                <span class="author mb-3 d-block">@item.Author</span>
+                            </div>
+                        }
+                            
+
+                    </div>
+                    <div class="col-lg-8">
+                        @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 3).Take(1).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1 Content">
+                                <a href="@url"><img src="~/assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2 class="mb-2"><a href="@url">@item.Title</a></h2>
+                                <span class="author mb-3 d-block">Jenny Wilson</span>
+                                <p class="mb-4  ">@item.Content1</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @foreach (var item in tags.Where(m => m.CategoryID == 2))
+                {
+                    
+                    <div class="post-entry-1 border-bottom">
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                        <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                        <span class="author mb-3 d-block">@item.Author</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>Business</h2>
+            <div><a href="category.html" class="more">See All Business</a></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9 order-md-2">
+
+                <div class="d-lg-flex post-entry-2 Content">
+                    @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 1).Take(1).ToList())
+                    {
+                        string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                        <a href="@url" class="me-4 thumbnail d-inline-block mb-4 mb-lg-0">
+                            <img src="~/assets/img/post-landscape-3.jpg" alt="" class="img-fluid">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                            <h3><a href="@url">@item.Title</a></h3>
+                            <p>@item.Content1</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img src="~/assets/img/person-4.jpg" alt="" class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">@item.Author</h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 2).Take(1).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1 border-bottom Content">
+                            <a href="@url"><img src="~/assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                            <h2 class="mb-2"><a href="@url">@item.Title</a></h2>
+                            <span class="author mb-3 d-block">@item.Author</span>
+                            <p class="mb-4 ">@item.Content1</p>
+                        </div>
+                        }
+                        @foreach (var item in tags.Where(m => m.CategoryID == 3).Take(1).ToList())
+                        {
+
+                            <div class="post-entry-1">
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                                <span class="author mb-3 d-block">@item.Author</span>
+                            </div>
+                        }
+                       
+                    </div>
+                    <div class="col-lg-8">
+                        @foreach (var item in Model.Where(m => m.Category == 4 && m.Prioritize == 3).Take(1).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1 Content">
+                            <a href="@url"><img src="~/assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                            <h2 class="mb-2"><a href="@url">@item.Title</a></h2>
+                            <span class="author mb-3 d-block">@item.Author</span>
+                            <p class="mb-4">@item.Content1</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @foreach (var item in tags.Where(m => m.CategoryID == 3))
+                {      
+                    <div class="post-entry-1 border-bottom">
+                        <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                        <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                        <span class="author mb-3 d-block">@item.Author</span>
+                    </div>
+                }
+
+              
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="category-section">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>Lifestyle</h2>
+            <div><a href="category.html" class="more">See All Lifestyle</a></div>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="post-entry-1 lg">
+                    @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 1).Take(1).ToList())
+                    {
+                        string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                        <a href="/@url"><img src="~/assets/img/post-landscape-8.jpg" alt="" class="img-fluid"></a>
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                        <h2><a href="/@url">@item.Title</a></h2>
+                        <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+
+                        <div class="d-flex align-items-center author">
+                            <div class="photo"><img src="~/assets/img/person-1.jpg" alt="" class="img-fluid"></div>
+                            <div class="name">
+                                <h3 class="m-0 p-0">@item.Author</h3>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                @foreach (var item in tags.Where(m => m.CategoryID == 3).Take(2).ToList())
+                {
+                    
+                    <div class="post-entry-1 border-bottom">
+                        <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bulle;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                        <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                        <span class="author mb-3 d-block">@item.Author</span>
+                    </div>
+                }
+
+               
+
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row g-5">
+                    <div class="col-lg-4 border-start custom-border">
+
+                        @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 2).Take(3).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1">
+                                <a href="/@url"><img src="~/assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2><a href="/@url" class="title">@item.Title</a></h2>
+                            </div>
+
+                        }
+                    </div>
+
+                    <div class="col-lg-4 border-start custom-border">
+
+                        @foreach (var item in Model.Where(m => m.Category == 1 && m.Prioritize == 3).Take(3).ToList())
+                        {
+                            string url = Functions.TitleSlugGeneration("SinglePost", item.Title, item.IDBlog);
+                            <div class="post-entry-1">
+                                <a href="/@url"><img src="~/assets/img/post-landscape-6.jpg" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2><a href="/@url" class="title">@item.Title</a></h2>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-lg-4">
+                        @foreach (var item in tags.Where(m => m.CategoryID == 3))
+                        {
+
+                            <div class="post-entry-1 border-bottom">
+                                <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>@item.CreatedDate?.ToString("dd/MM/yyyy")</span></div>
+                                <h2 class="mb-2"><a href="single-post.html">@item.Titile</a></h2>
+                                <span class="author mb-3 d-block">@item.Author</span>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End .row -->
+    </div>
+</section>
