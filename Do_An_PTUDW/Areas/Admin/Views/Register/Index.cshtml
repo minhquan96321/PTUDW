@@ -1,0 +1,207 @@
+﻿@model Do_An_PTUDW.Areas.Admin.Models.AdminUser;
+@using Do_An_PTUDW.Utilities;
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/admin/register/css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form class="register-form" id="register-form" asp-controller="Register" asp-action="Index">
+                            <div class="form-group">
+                                <label for="yourName" class="form-label"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" asp-for="UserName" placeholder="Your Name" class="form-control" id="yourName" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="yourEmail" class="form-label"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" asp-for="Email" placeholder="Your Email" class="form-control" id="yourEmail" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="yourPassword" class="form-label"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" placeholder="Password" asp-for="Password" class="form-control" id="yourPassword" required />
+                            </div>
+                            <div class="form-group d-none">
+                                <input asp-for="IsActive" class="form-control" value="True" />
+                            </div>
+                            <input asp-for="Avatar" class="form-control d-none" value="assets/img/post-landscape-1.jpg" />
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="~/admin/register/images/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="/Admin/Login" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="~/admin//register//vendor/jquery/jquery.min.js"></script>
+    <script src="~/admin//register//js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+
+
+@*<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/admin/assets/img/favicon.png" rel="icon">
+    <link href="~/admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/admin/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <main>
+        <div class="container">
+
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                    <img src="~/admin/assets/img/logo.png" alt="">
+                                    <span class="d-none d-lg-block">NiceAdmin</span>
+                                </a>
+                            </div>
+                            <!-- End Logo -->
+
+                            <div class="card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                        <p class="text-center small">Enter your personal details to create account</p>
+                                    </div>
+
+                                    <form class="row g-3 needs-validation" novalidate asp-controller="Register" asp-action="Index">
+
+                                        <div class="col-12">
+                                            <label for="yourName" class="form-label">Your Name</label>
+                                            <input type="text" asp-for="UserName" class="form-control" id="yourName" required>
+                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourEmail" class="form-label">Your Email</label>
+                                            <input type="email" asp-for="Email" class="form-control" id="yourEmail" required>
+                                            <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Password</label>
+                                            <input type="password" asp-for="Password" class="form-control" id="yourPassword" required>
+                                            <div class="invalid-feedback">Please enter your password!</div>
+                                        </div>
+
+                                        <div class="form-group d-none">
+                                            <input asp-for="IsActive" class="form-control" value="True" />
+                                        </div>
+
+                                        <div class="col-12 text-center text-danger">
+                                            <h6>
+                                                @Functions._MessageEmail
+                                            </h6>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <p class="small mb-0">Already have an account? <a href="/Admin/Login">Log in</a></p>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="credits">
+                                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/assets/vendor/chart.js/chart.min.js"></script>
+    <script src="~/admin/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/admin/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/admin/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/admin/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/admin/assets/js/main.js"></script>
+
+</body>
+
+</html>*@

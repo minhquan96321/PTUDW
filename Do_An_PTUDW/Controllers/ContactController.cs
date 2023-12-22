@@ -14,20 +14,6 @@ namespace Do_An_PTUDW.Controllers
         }
         public IActionResult Index()
         {
-            var mnList = (from m in _context.Contacts
-                          select new SelectListItem()
-                          {
-                              Text = m.UserName,
-                              Value = m.ContactID.ToString(),
-                          }).ToList();
-            mnList.Insert(0, new SelectListItem()
-            {
-                Text = "----Select----",
-                Value = "0"
-
-            });
-            ViewBag.mnList = mnList;
-
             return View();
         }
 
@@ -36,15 +22,16 @@ namespace Do_An_PTUDW.Controllers
         [ValidateAntiForgeryToken]
 
 
-        public IActionResult Index(Contact ct)
+        public IActionResult Create(Contact ct)
         {
             if (ModelState.IsValid)
             {
                 _context.Contacts.Add(ct);
                 _context.SaveChanges();
+                TempData["Altermessage"] = "Liên hệ thành công";
                 return RedirectToAction("Index");
             }
-            return View(ct);
+            return View();
         }
 
 

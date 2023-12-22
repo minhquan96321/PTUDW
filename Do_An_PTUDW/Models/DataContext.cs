@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Do_An_PTUDW.Areas.Admin.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,12 @@ public partial class DataContext : DbContext
     public DbSet<Blog> Blogs { get; set; }
 
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<About> Abouts { get; set; }
     public DbSet<View_singlePost> Views { get; set; }
+    public DbSet<AdminMenu> AdminMenus { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<AdminUser> Admins { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 }
 
 

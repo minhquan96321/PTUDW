@@ -17,6 +17,7 @@ namespace Do_An_PTUDW.Components
         {
             var listofMenu = (from m in _context.Menus
                               where (m.IsActive ==true) && (m.Position == 1) select m).ToList();
+            ViewBag.About = _context.Abouts.ToList();
             return await Task.FromResult((IViewComponentResult)View("Default", listofMenu));
         }
     }

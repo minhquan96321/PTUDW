@@ -9,7 +9,7 @@ namespace Do_An_PTUDW.Models
         public int TagID { get; set; }
         public string ? Titile { get; set; }
         public string ? Author { get; set; }
-        public long? BlogID { get; set; }
+        public long BlogID { get; set; }
         public int? CategoryID { get; set; }
         public DateTime? CreatedDate { get; set;}
     }

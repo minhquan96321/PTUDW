@@ -1,0 +1,101 @@
+﻿@model Do_An_PTUDW.Models.Blog;
+@using Do_An_PTUDW.Utilities;
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Xác nhận sửa post</h2>
+    </div>
+
+    <div class="container shadow p-5">
+
+        <div class="row pb-2">
+            <h2>Sửa post</h2>
+        </div>
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-row">
+                <input type="text" class="form-control mb-3" asp-for="IDBlog" type="hidden">
+                <div class="form-group col-md-12">
+                    <label asp-for="Author">Author</label>
+                    <input type="text" class="form-control mb-3" asp-for="Author">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label asp-for="Title">Title</label>
+                    <input type="text" class="form-control mb-3" asp-for="Title">
+                </div>
+
+               @* <div class="form-group col-md-12">
+                    <label asp-for="IDBlog">Contents</label>
+                    <input type="text" class="form-control mb-3" asp-for="Contents">
+                </div>*@
+                <div class="form-group col-md-6">
+                    <label asp-for="Prioritize">Prioritize</label>
+                    <select asp-for="Prioritize" class="form-select" id="Prioritize">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="2">3</option>
+                        <option value="2">4</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="control-label">Images</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-success" type="button" onclick="openDialog()">Choose a pic</button>
+                        </div>
+                        <input type="text" class="form-control" asp-for="Images" id="file_input" aria-describedby="button-addon2">
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label asp-for="Contents">Contents</label>
+                    <textarea asp-for="Contents" class="form-control"></textarea>
+                </div>
+               @* <div class="form-group col-md-6">
+                    <label asp-for="Contents">Contents</label>
+                    <input type="text" class="form-control mb-3" asp-for="Contents" placeholder="Enter Position">
+                    <span asp-validation-for="Contents" class="alert-danger"></span>
+                </div>*@
+
+                <div class="form-group col-md-6 mt-3 mb-3">
+                    <label>
+                        @Html.CheckBox("IsActive", Model.IsActive)
+                        Hiển thị
+                    </label>
+                </div>
+
+                <div class="form-group d-none">
+                    <input asp-for="CreatedDate" class="form-control" value="@Functions.getCurrentDate()">
+                </div>
+
+                <div class="form-group d-none">
+                    <input asp-for="IDMenu" class="form-control" value="@Model.IDMenu">
+                </div>
+
+
+            </div>
+
+
+
+            <a class="btn btn-lg btn-warning p-2 mr-5" href="javascript:history.back()">
+                <i class="bi bi-arrow-left-circle"></i>Quay lại
+            </a>
+            <button type="submit" class="btn btn-lg btn-primary p-2">
+                <i class="bi bi-file-plus-fill"></i> Lưu lại
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+@{
+    var summerNote = new Do_An_PTUDW.Areas.Admin.Models.SummerNote("#Contents");
+    <partial name="_SummerNote" model="summerNote" />
+}

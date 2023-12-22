@@ -3,6 +3,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (TempData["Altermessage"] != null)
+{
+    <div id="notification" class="alert alert-success" style="position:fixed; right:0px">
+        <strong>Liên hệ thành công</strong>
+    </div>
+}
+<script>
+    const notification = document.getElementById("notification");
+
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 3000)
+</script>
+
 <main id="main">
     <section id="contact" class="contact mb-5">
         <div class="container" data-aos="fade-up">
@@ -42,11 +56,11 @@
             </div>
 
             <div class="form mt-5">
-                <form id="contact_form" name="contact_form" method="post">
+                <form id="contact_form" name="contact_form" method="post" asp-action="Create">
                     <div class="mb-5 row">
                         <div class="col">
                             <label asp-for="UserName" >UserName</label>
-                            <input type="text" required maxlength="50" class="form-control" asp-for="UserName" id="UserName" name="first_name">
+                            <input type="text" required="required" maxlength="50" class="form-control" asp-for="UserName" id="UserName" name="UserName">
                         </div>
 
                         <div class="col">
@@ -59,7 +73,7 @@
                       
                         <div class="col">
                             <label asp-for ="Subject" for="subject_input">Subject</label>
-                            <input type="tel" required maxlength="50" class="form-control" asp-for="Subject" id="phone_input" name="Phone"
+                            <input type="tel" required maxlength="50" class="form-control" asp-for="Subject" id="phone_input" name="subject"
                                    placeholder="Subject">
                         </div>
                     </div>

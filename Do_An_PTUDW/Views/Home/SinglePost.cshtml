@@ -1,21 +1,18 @@
-﻿@{
+﻿@using Do_An_PTUDW.Utilities
+
+@{
     @model Do_An_PTUDW.Models.Blog
-    
+    List<Menu> menus = ViewBag.menus;
+    List<Comment> comment = ViewBag.comment;
 }
 
-<style>
-    .img-fluid {
-        width: 75%;
-        height: 100%;
-        object-fit: contain;
-        display: flex;
-        justify-content: center;
-    }
+<header>
+    <script src="~/assets/js/plugins/jquery-ui.min.js"></script>
+</header>
 
-    .row.post-content figure {
-        max-width: 750px;
-    }
-  
+<style>
+
+
 </style>
 
 <main id="main">
@@ -24,29 +21,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9 post-content" data-aos="fade-up">
-                   
+
                     <div class="single-post">
                         <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>@Html.DisplayFor(model => model.CreatedDate )</span></div>
                         <h1 class="mb-5">@Html.DisplayFor(model => model.Title )</h1>
-                        <p>@Html.DisplayFor(model => model.Content1)</p>
+                        <p>@Html.DisplayFor(model => model.Contents)</p>
 
                         <figure class="my-4 Photoediting">
-                            <img src="@Html.DisplayFor(model => model.ImageCategory)" alt="" class="img-fluid">
-                            
+                            <img src="@Html.DisplayFor(model => model.Images)" alt="" class="img-fluid">
+
                         </figure>
-                        <p>
-                            @Html.DisplayFor(model => model.Content2)
-                        </p>
-                        
-                       
-                        <figure class="my-4">
-                            <img src="@Html.DisplayFor(model => model.ImageCategory)" alt="" class="img-fluid">
-                            
-                        </figure>
-                        <p>
-                            @Html.DisplayFor(model => model.Content3)
-                        </p>
-                  
+
+
+
+
+
+
                     </div><!-- End Single Post Content -->
                     <!-- ======= Comments ======= -->
                     <div class="comments">
@@ -72,7 +62,7 @@
                                     <div class="reply d-flex mb-4">
                                         <div class="flex-shrink-0">
                                             <div class="avatar avatar-sm rounded-circle">
-                                                <img class="avatar-img img-fluid" src="assets/img/person-4.jpg" alt="" >
+                                                <img class="avatar-img img-fluid" src="assets/img/person-4.jpg" alt="">
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 ms-2 ms-sm-3">
@@ -88,7 +78,7 @@
                                     <div class="reply d-flex">
                                         <div class="flex-shrink-0">
                                             <div class="avatar avatar-sm rounded-circle">
-                                                <img class="avatar-img img-fluid" src="assets/img/person-3.jpg" alt="" >
+                                                <img class="avatar-img img-fluid" src="assets/img/person-3.jpg" alt="">
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 ms-2 ms-sm-3">
@@ -107,7 +97,7 @@
                         <div class="comment d-flex">
                             <div class="flex-shrink-0">
                                 <div class="avatar avatar-sm rounded-circle">
-                                    <img class="avatar-img img-fluid" src="assets/img/person-2.jpg" alt="" >
+                                    <img class="avatar-img img-fluid" src="assets/img/person-2.jpg" alt="">
                                 </div>
                             </div>
                             <div class="flex-shrink-1 ms-2 ms-sm-3">
@@ -124,7 +114,7 @@
                     <!-- ======= Comments Form ======= -->
                     <div class="row justify-content-center mt-5">
 
-                        <div class="col-lg-12">
+                        <div class="col-lg-12" id="blog_comment">
                             <h5 class="comment-title">Leave a Comment</h5>
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
@@ -141,7 +131,7 @@
                                     <textarea class="form-control" id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <input type="submit" class="btn btn-primary" value="Post comment">
+                                    <input type="submit" id="c_submit" class="btn btn-primary" value="Post comment">
                                 </div>
                             </div>
                         </div>
@@ -297,28 +287,38 @@
                     <div class="aside-block">
                         <h3 class="aside-title">Categories</h3>
                         <ul class="aside-links list-unstyled">
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>
-                            <li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>
+                            @foreach (var menu in menus.Where(m => m.Levels == 1).OrderBy(n => n.MenuOrder))
+                            {
+                                var Pid = menu.MenuID;
+                                var Smenu = menus.Where(p => p.ParentID == Pid).OrderBy(p => p.MenuOrder);
+                                @foreach (var smn in Smenu)
+                                {
+                                    string url = Functions.TitleSlugGeneration("categori", smn.MenuName, smn.MenuID);
+                                    <li><a href="/@url"><i class="bi bi-chevron-right"></i>@smn.MenuName</a></li>
+                                }
+                            }
+                            @*<li><a href="categori-search-result-6"><i class="bi bi-chevron-right"></i>Search Result</a></li>
+                            <li><a href="categori-culture-8"><i class="bi bi-chevron-right"></i> Culture</a></li>
+                            <li><a href="categori-spost-9"><i class="bi bi-chevron-right"></i> Sport</a></li>
+                            <li><a href="categori-food-10"><i class="bi bi-chevron-right"></i> Food</a></li>
+                            <li><a href="categori-politics-11"><i class="bi bi-chevron-right"></i> Politics</a></li>
+                            <li><a href="categori-celebrity-12"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
+                            <li><a href="categori-starups-13"><i class="bi bi-chevron-right"></i> Startups</a></li>
+                            <li><a href="categori-travel-14"><i class="bi bi-chevron-right"></i> Travel</a></li>*@
                         </ul>
                     </div><!-- End Categories -->
 
                     <div class="aside-block">
                         <h3 class="aside-title">Tags</h3>
                         <ul class="aside-tags list-unstyled">
-                            <li><a href="category.html">Business</a></li>
-                            <li><a href="category.html">Culture</a></li>
-                            <li><a href="category.html">Sport</a></li>
-                            <li><a href="category.html">Food</a></li>
-                            <li><a href="category.html">Politics</a></li>
-                            <li><a href="category.html">Celebrity</a></li>
-                            <li><a href="category.html">Startups</a></li>
-                            <li><a href="category.html">Travel</a></li>
+                            <li><a href="categori-search-result-6.html">Search Result</a></li>
+                            <li><a href="categori-culture-8.html">Culture</a></li>
+                            <li><a href="categori-spost-9.html">Sport</a></li>
+                            <li><a href="categori-food-10.html">Food</a></li>
+                            <li><a href="categori-politics-11.html">Politics</a></li>
+                            <li><a href="categori-celebrity-12.html">Celebrity</a></li>
+                            <li><a href="categori-starups-13.html">Startups</a></li>
+                            <li><a href="categori-travel-14.html">Travel</a></li>
                         </ul>
                     </div><!-- End Tags -->
 
@@ -327,3 +327,39 @@
         </div>
     </section>
 </main><!-- End #main -->
+@*<input type="hidden" id="blog_id" value="@Model.IDBlog" />
+comment-name
+comment-email
+comment-message
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#c_submit").click(function () {
+                _id = $("#blog_id").val();
+                _name = $("#comment-name").val();
+                _email = $("#comment-email").val();
+                _message = $("#comment-message").val();
+                $.ajax({
+                    url: "/Home/Create",
+                    type: "POST",
+                    data: { id: _id, name: _name, email: _email, message: _message },
+                    success: function (result) {
+                        if (result != null) {
+                            $("#comment-name").val("");
+                            $("#comment-email").val("");
+                            $("#comment-message").val("");
+                            _date = Untils.getCurrentDate();
+                            toastr.success('Gửi thành công');
+                            _sHtml = '<div class="blog-comment-item mb-8"> <div class="blog-comment-img"> <img src="/assets/images/avatar/1.jpg" alt="Avatar"> </div> <div class="blog-comment-content"> <div class="user-meta"> <span><strong>' + _name + ' -</strong> ' + _date + '</span> <a class="btn btn-link hover-white d-none d-md-flex" href="javascript:void(0)"> <i class="fa fa-reply me-2"></i> Reply </a> </div> <p class="user-comment mb-0">' + _message + '</p> <a class="btn btn-link hover-white d-inline-flex d-md-none mt-5" href="javascript:void(0)"> <i class="fa fa-reply me-2"></i> Reply </a> </div> </div>';
+                            $("#blog_comment").append(_sHtml);
+                        }
+                        else {
+                            toastr.success('Gửi không thành công');
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}*@

@@ -18,9 +18,9 @@ namespace Do_An_PTUDW.Models
         public DateTime? CreatedDate { get; set; }
         public long? Prioritize { get; set; }
         public int? IDMenu { get; set; }
-        public string? ImageCategory { get; set; }
-        public String? Content1 { get; set; } 
-        public String? Content2 { get; set; } 
-        public String? Content3 { get; set; }
+        public string? Images { get; set; }
+        public string? Contents { get; set; } 
+         
+      
     }
 }

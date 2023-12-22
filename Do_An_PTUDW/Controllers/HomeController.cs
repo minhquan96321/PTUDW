@@ -53,9 +53,11 @@ namespace Do_An_PTUDW.Controllers
             {
                 return NotFound();
             }
+           /* ViewBag.SinglePost = _dataContext.Blogs.Where(i => i.IDBlog == id ).ToList();*/
             var singlepost = _dataContext.Blogs
                 .FirstOrDefault(m => (m.IDBlog == id) && (m.IsActive == true) );
-            ViewBag.SinglePost = _dataContext.Blogs.Where(i => i.IDBlog == id ).ToList();
+            ViewBag.menus = _dataContext.Menus.Where(i => i.IsActive == true).ToList();
+            ViewBag.comment = _dataContext.Comments.ToList();
             if (singlepost == null)
             {
                 return NotFound();
@@ -63,6 +65,27 @@ namespace Do_An_PTUDW.Controllers
            
 
             return View(singlepost);
+        }
+
+        [HttpPost]
+        public IActionResult Create(int id, string name, string email, string message)
+        {
+            try
+            {
+                Comment comment = new Comment();
+                comment.CommentID = id;
+                comment.Name = name;
+                comment.Email = email;
+                comment.Message = message;
+                comment.Commentdate = DateTime.Now;
+                _dataContext.Add(comment);
+                _dataContext.SaveChangesAsync();
+                return Json(new { status = true });
+            }
+            catch
+            {
+                return Json(new { status = false });
+            }
         }
 
 
