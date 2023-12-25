@@ -12,5 +12,7 @@ namespace Do_An_PTUDW.Models
         public string ? Message { get; set; }
         public DateTime? Commentdate { get; set; }
         public long BlogId { get; set; }
+
+        public virtual ICollection<Blog> Blogs { get; set; }
     }
 }

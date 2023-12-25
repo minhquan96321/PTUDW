@@ -1,6 +1,7 @@
 ﻿using Do_An_PTUDW.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 
 namespace Do_An_PTUDW.Controllers
@@ -57,23 +58,21 @@ namespace Do_An_PTUDW.Controllers
             var singlepost = _dataContext.Blogs
                 .FirstOrDefault(m => (m.IDBlog == id) && (m.IsActive == true) );
             ViewBag.menus = _dataContext.Menus.Where(i => i.IsActive == true).ToList();
-            ViewBag.comment = _dataContext.Comments.ToList();
+            ViewBag.comment = _dataContext.Comments.Where(r => r.BlogId == id).ToList();
+            ViewBag.comments = _dataContext.Comments.Where(r => r.BlogId == id).Count();
             if (singlepost == null)
             {
                 return NotFound();
             }
-           
-
             return View(singlepost);
         }
-
         [HttpPost]
-        public IActionResult Create(int id, string name, string email, string message)
+        public IActionResult Create(long id, string name, string email, string message)
         {
             try
             {
                 Comment comment = new Comment();
-                comment.CommentID = id;
+                comment.BlogId = id;
                 comment.Name = name;
                 comment.Email = email;
                 comment.Message = message;
@@ -87,6 +86,8 @@ namespace Do_An_PTUDW.Controllers
                 return Json(new { status = false });
             }
         }
+
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

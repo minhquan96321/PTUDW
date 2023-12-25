@@ -19,8 +19,8 @@ namespace Do_An_PTUDW.Models
         public long? Prioritize { get; set; }
         public int? IDMenu { get; set; }
         public string? Images { get; set; }
-        public string? Contents { get; set; } 
-         
-      
+        public string? Contents { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 }
